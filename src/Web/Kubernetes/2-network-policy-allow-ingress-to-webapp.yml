@@ -1,0 +1,13 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-external-webapp
+  namespace: contoso
+  labels:
+    environment: demo
+spec:
+  podSelector:
+    matchLabels:
+      app: azure-webapp
+  ingress:
+  - {}

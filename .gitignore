@@ -9,6 +9,9 @@
 *.user
 *.userosscache
 *.sln.docstates
+kube-config
+appsettings.Development.json
+docker.sh
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

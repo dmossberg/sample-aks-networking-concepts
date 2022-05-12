@@ -1,0 +1,34 @@
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-access-to-shared
+  namespace: contoso
+  labels:
+    environment: demo
+spec:
+  podSelector:
+    matchLabels:
+      app: azure-webapp
+  egress:
+  - to: 
+      - namespaceSelector:
+          matchLabels:
+              team: shared
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-access-from-contoso
+  namespace: shared
+  labels:
+    environment: demo
+spec:
+  podSelector:
+    matchLabels:
+      app: azure-webapi
+  ingress:
+  - from: 
+      - namespaceSelector:
+          matchLabels:
+              team: contoso
