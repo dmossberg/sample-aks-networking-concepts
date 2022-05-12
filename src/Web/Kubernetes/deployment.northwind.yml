@@ -1,0 +1,46 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  name: azure-webapp
+  namespace: northwind
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: azure-webapp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azure-webapp
+  namespace: northwind
+  labels:
+    app: azure-webapp
+    environment: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-webapp
+  template:
+    metadata:
+      labels:
+        app: azure-webapp
+        environment: demo
+    spec:
+      containers:
+      - name: azure-webapp
+        image: <container_registry>.azurecr.io/<web-image-name>:latest
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        env:
+        - name: WEBSITE_NAME
+          value: "Northwind"
+        ports:
+        - containerPort: 80

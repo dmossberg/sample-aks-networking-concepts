@@ -1,0 +1,30 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Environment.GetEnvironmentVariable("WEBSITE_NAME")</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div>
+    <form asp-page="/Index" method="post">
+        <div class="form-group">
+            <label for="url">API url:</label><br>
+            <input class="form-control input-lg" type="text" id="url" name="url" default="https://management.azure.com/" value="@Model.ApiUrl" style="width=400px"><br>
+        </div>
+        <br />
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Request</button>
+        </div>
+    </form>
+    <div class="form-group">
+        <label for="apiresponse">API Response:</label>
+        <textarea class="form-control" id="apiresponse" rows="10" readonly>@Model.ApiResponse</textarea>
+      </div>
+</div>
+
+
+
